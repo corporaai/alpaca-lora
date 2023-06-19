@@ -25,7 +25,6 @@ def train_model(
     ):
     if(user_id):
         output_dir = model_name if model_name else "./alpaca-lora-finetuned"
-        print("installing dependencies...")
         download_file(dataset_url, "dataset.json")
         # train(base_model="decapoda-research/llama-7b-hf", data_path=data_path, output_dir=f"{output_dir}-{user_id}")
         # print("uploading finetuned model to scrol hub")
