@@ -1,6 +1,7 @@
 from finetune import about_model, train
 import request
 import fire
+import subprocess
 def upload_model(model_chkpt):
     print("uploading finetuned model")
     return f"model {model_chkpt} uploaded"
@@ -26,7 +27,8 @@ def train_model(
     if(user_id):
         output_dir = model_name if model_name else "./alpaca-lora-finetuned"
         download_file(dataset_url, "dataset.json")
-        # train(base_model="decapoda-research/llama-7b-hf", data_path=data_path, output_dir=f"{output_dir}-{user_id}")
+        subprocess.run(["cp", "/home/ubuntu/.local/lib/python3.8/site-packages/bitsandbytes/libbitsandbytes_cuda117.so", "/home/ubuntu/.local/lib/python3.8/site-packages/bitsandbytes/libbitsandbytes_cpu.so"])
+        train(base_model="decapoda-research/llama-7b-hf", data_path="dataset.json", output_dir=f"{output_dir}-{user_id}")
         # print("uploading finetuned model to scrol hub")
         # res = uplaod(output_dir)
         # print(res)
