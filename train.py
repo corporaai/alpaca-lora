@@ -1,7 +1,6 @@
 from finetune import about_model, train
 import request
 import fire
-import subprocess
 def upload_model(model_chkpt):
     print("uploading finetuned model")
     return f"model {model_chkpt} uploaded"
@@ -27,7 +26,6 @@ def train_model(
     if(user_id):
         output_dir = model_name if model_name else "./alpaca-lora-finetuned"
         print("installing dependencies...")
-        subprocess.run(["pip", "install", "-r", "requirements.txt"])
         download_file(dataset_url, "dataset.json")
         # train(base_model="decapoda-research/llama-7b-hf", data_path=data_path, output_dir=f"{output_dir}-{user_id}")
         # print("uploading finetuned model to scrol hub")
