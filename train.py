@@ -1,5 +1,5 @@
 from finetune import about_model, train
-import request
+import requests
 import fire
 import subprocess
 def upload_model(model_chkpt):
