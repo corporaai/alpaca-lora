@@ -1,14 +1,16 @@
+#!/bin/bash
 user_id=$1
 dataset_url=$2
 model_name=$3
 
-python3 -m venv finetune-alpaca
+python3 -m venv "finetune-alpaca"
 
-source finetune-alpaca/bin/activate 
-
+source "finetune-alpaca/bin/activate" 
+echo "venv activated"
 pip install -r requirements.txt
 
-cp /finetune-alpaca/lib/python3.8/site-packages/bitsandbytes/libbitsandbytes_cuda117.so /finetune-alpaca/lib/python3.8/site-packages/bitsandbytes/libbitsandbytes_cpu.so
+cp finetune-alpaca/lib/python3.8/site-packages/bitsandbytes/libbitsandbytes_cuda117.so finetune-alpaca/lib/python3.8/site-packages/bitsandbytes/libbitsandbytes_cpu.so
+echo "bnb cuda library modified"
 
 python train.py \
     --model_name "$3" \
