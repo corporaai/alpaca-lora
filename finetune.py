@@ -278,7 +278,5 @@ def train(
         "\n If there's a warning about missing keys above, please disregard :)"
     )
 
-def about_model():
-    return "alpaca-lora"
 if __name__ == "__main__":
     fire.Fire(train)

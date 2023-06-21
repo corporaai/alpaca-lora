@@ -25,11 +25,12 @@ def train_model(
     dataset_url:str=None
     ):
     if(user_id):
-        output_dir = model_name if model_name else "./alpaca-lora-finetuned"
+        output_dir_base = model_name if model_name else "./alpaca-lora-finetuned"
+        output_dir = f"{output_dir_base}-{user_id}"
         download_file(dataset_url, "dataset.json")
         subprocess.run(["cp", "/home/ubuntu/.local/lib/python3.8/site-packages/bitsandbytes/libbitsandbytes_cuda117.so", "/home/ubuntu/.local/lib/python3.8/site-packages/bitsandbytes/libbitsandbytes_cpu.so"])
-        train(base_model="decapoda-research/llama-7b-hf", data_path="dataset.json", output_dir=f"{output_dir}-{user_id}")
-        # print("uploading finetuned model to scrol hub")
+        train(base_model="decapoda-research/llama-7b-hf", data_path='dataset.json', output_dir=f"{output_dir}")
+        # print("uploading finetuned model to storage")
         # res = uplaod(output_dir)
         # print(res)
     else:

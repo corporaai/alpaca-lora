@@ -13,6 +13,6 @@ cp finetune-alpaca/lib/python3.8/site-packages/bitsandbytes/libbitsandbytes_cuda
 echo "bnb cuda library modified"
 
 python train.py \
-    --model_name "$3" \
-    --user_id "$1" \
-    --dataset_url "$2"
+    --model_name $3 \
+    --user_id $1 \
+    --dataset_url $2
