@@ -2,8 +2,6 @@ user_id=$1
 dataset_url=$2
 model_name=$3
 
-cd alpaca-lora
-
 python3 -m venv finetune-alpaca
 
 source finetune-alpaca/bin/activate 
