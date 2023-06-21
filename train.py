@@ -1,7 +1,8 @@
-from finetune import about_model, train
+from finetune import train
 import requests
 import fire
 import subprocess
+import json
 def upload_model(model_chkpt):
     print("uploading finetuned model")
     return f"model {model_chkpt} uploaded"
@@ -28,8 +29,14 @@ def train_model(
         output_dir_base = model_name if model_name else "./alpaca-lora-finetuned"
         output_dir = f"{output_dir_base}-{user_id}"
         download_file(dataset_url, "dataset.json")
-        subprocess.run(["cp", "/home/ubuntu/.local/lib/python3.8/site-packages/bitsandbytes/libbitsandbytes_cuda117.so", "/home/ubuntu/.local/lib/python3.8/site-packages/bitsandbytes/libbitsandbytes_cpu.so"])
-        train(base_model="decapoda-research/llama-7b-hf", data_path='dataset.json', output_dir=f"{output_dir}")
+        val_set_size = 50
+
+        with open('dataset.json', 'r') as openfile:
+            # Reading from json file
+            json_object = json.load(openfile)
+            val_set_size = int(len(json_object)*0.1)
+            
+        train(base_model="decapoda-research/llama-7b-hf", data_path='dataset.json', output_dir=f"{output_dir}", val_set_size=val_set_size)
         # print("uploading finetuned model to storage")
         # res = uplaod(output_dir)
         # print(res)
