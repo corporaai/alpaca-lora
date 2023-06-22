@@ -2,6 +2,7 @@
 user_id=$1
 dataset_url=$2
 model_name=$3
+scrol_token=$4
 
 python3 -m venv "finetune-alpaca"
 
@@ -15,4 +16,5 @@ echo "bnb cuda library modified"
 python train.py \
     --model_name $3 \
     --user_id $1 \
-    --dataset_url $2
+    --dataset_url $2 \
+    --scrol_token $4
