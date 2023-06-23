@@ -15,4 +15,13 @@ chmod +x start_job.sh &&
 
 ## Deploy
 
-WIP
+- Automatic Deploy can only be done with scrol dashboard.
+
+  for manual deploy use these commands
+
+  ```bash
+  python generate.py \
+    --load_8bit \
+    --base_model 'decapoda-research/llama-7b-hf' \
+    --lora_weights ./scroltest
+  ```
