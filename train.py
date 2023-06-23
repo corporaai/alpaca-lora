@@ -3,7 +3,9 @@ import requests
 import fire
 import subprocess
 import json
-import tqdm
+from tqdm import tqdm
+import os
+
 def upload_folder(url, folder_path, json_data):
     # Create a session to persist the connection
     session = requests.Session()
@@ -66,36 +68,36 @@ def train_model(
     scrol_token:str=None
     ):
     output_dir_base = model_name if model_name else "./alpaca-lora-finetuned"
-        output_dir = f"{output_dir_base}"
-        download_file(dataset_url, "dataset.json")
-        val_set_size = 50
-        user_input = None
-        if scrol_token:
+    output_dir = f"{output_dir_base}"
+    download_file(dataset_url, "dataset.json")
+    val_set_size = 50
+    user_input = None
+    if scrol_token:
+        with open('dataset.json', 'r') as openfile:
+            # Reading from json file
+            json_object = json.load(openfile)
+            val_set_size = int(len(json_object)*0.1)
+                
+            train(base_model="decapoda-research/llama-7b-hf", data_path='dataset.json', output_dir=f"{output_dir}", val_set_size=val_set_size)
+            print("uploading finetuned model to storage")
+            upload_folder("https://api-scrol.onrender.com/upload-model", output_dir, payload)
+            # print(res)
+    else:
+        print("scrol token missing, without it finetuned model will not be uploaded on scrol stoarage and you can't perform auto deploy(have to manually deploy it for inference)")
+        user_input = input('continue without scrol_token (y/n): ')
+        if(user_input == 'y'):
             with open('dataset.json', 'r') as openfile:
                 # Reading from json file
                 json_object = json.load(openfile)
                 val_set_size = int(len(json_object)*0.1)
-                
-            train(base_model="decapoda-research/llama-7b-hf", data_path='dataset.json', output_dir=f"{output_dir}", val_set_size=val_set_size)
-            print("uploading finetuned model to storage")
-            upload_folder("https://api-scrol.onrender.com/upload-model", './modeldata', payload)
-            # print(res)
-        else:
-            print("scrol token missing, without it finetuned model will not be uploaded on scrol stoarage and you can't perform auto deploy(have to manually deploy it for inference)")
-            user_input = input('continue without scrol_token (y/n): ')
-            if(user_input == 'y'):
-                with open('dataset.json', 'r') as openfile:
-                    # Reading from json file
-                    json_object = json.load(openfile)
-                    val_set_size = int(len(json_object)*0.1)
                     
                 train(base_model="decapoda-research/llama-7b-hf", data_path='dataset.json', output_dir=f"{output_dir}", val_set_size=val_set_size)
                 print("training completed.")
                 print("you can download/use the finetuned weights for inference.")
-            elif(user_input == 'n'):
+        elif(user_input == 'n'):
                 print('re-run the command with valid scrol_token')
-            else:
-                print("not a valid choice")
+        else:
+            print("not a valid choice")
 
 if __name__ == "__main__":
     fire.Fire(train_model)
