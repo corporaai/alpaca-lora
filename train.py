@@ -65,8 +65,7 @@ def train_model(
     dataset_url:str=None,
     scrol_token:str=None
     ):
-    if(user_id):
-        output_dir_base = model_name if model_name else "./alpaca-lora-finetuned"
+    output_dir_base = model_name if model_name else "./alpaca-lora-finetuned"
         output_dir = f"{output_dir_base}"
         download_file(dataset_url, "dataset.json")
         val_set_size = 50
@@ -97,8 +96,6 @@ def train_model(
                 print('re-run the command with valid scrol_token')
             else:
                 print("not a valid choice")
-    else:
-        print("please provide a valid user id")
 
 if __name__ == "__main__":
     fire.Fire(train_model)
