@@ -17,7 +17,7 @@ chmod +x start_job.sh &&
 
 - Automatic Deploy can only be done with scrol dashboard.
 
-  for manual deploy use these commands
+  for manual deploy use:
 
   ```bash
   python generate.py \
