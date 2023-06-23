@@ -62,13 +62,12 @@ payload = {
 }
 def train_model( 
     model_name:str="",
-    user_id:str=None,
     dataset_url:str=None,
     scrol_token:str=None
     ):
     if(user_id):
         output_dir_base = model_name if model_name else "./alpaca-lora-finetuned"
-        output_dir = f"{output_dir_base}{user_id}"
+        output_dir = f"{output_dir_base}"
         download_file(dataset_url, "dataset.json")
         val_set_size = 50
         user_input = None

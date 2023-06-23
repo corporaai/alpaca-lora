@@ -1,8 +1,7 @@
 #!/bin/bash
-user_id=$1
 dataset_url=$2
-model_name=$3
-scrol_token=$4
+model_name=$1
+scrol_token=$3
 
 python3 -m venv "finetune-alpaca"
 
@@ -14,7 +13,6 @@ cp finetune-alpaca/lib/python3.8/site-packages/bitsandbytes/libbitsandbytes_cuda
 echo "bnb cuda library modified"
 
 python train.py \
-    --model_name $3 \
-    --user_id $1 \
+    --model_name $1 \
     --dataset_url $2 \
-    --scrol_token $4
+    --scrol_token $3
