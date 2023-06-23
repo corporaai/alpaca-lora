@@ -55,13 +55,7 @@ def download_file(url, local_filename):
                 f.write(chunk)
     print("download finished")
     return local_filename
-payload = {
-    "secretkey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiclVna3l1aUVVV1lUejhpbGVIU0FyeHR4ZWtDMyIsImlhdCI6MTY4NzQwODE1OX0.NJFe6OafIKb55nS0JeKxEXYNTc442FXLm2uIpdTQPB8",
-    "modelname": "alpaca-lora",
-    "modelrepo": "somerepo",
-    "modelbaseweights": "decapoda/llama",
-    "trainingtype": "lora"
-}
+
 def train_model( 
     model_name:str="",
     dataset_url:str=None,
@@ -72,6 +66,13 @@ def train_model(
     download_file(dataset_url, "dataset.json")
     val_set_size = 50
     user_input = None
+    payload = {
+    "secretkey": scrol_token,
+    "modelname": output_dir,
+    "modelrepo": 'https://github.com/corporaai/alpaca-lora.git',
+    "modelbaseweights": "decapoda/llama",
+    "trainingtype": "lora"
+        }
     if scrol_token:
         with open('dataset.json', 'r') as openfile:
             # Reading from json file
