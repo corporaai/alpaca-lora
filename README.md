@@ -10,7 +10,7 @@
 git clone https://github.com/corporaai/alpaca-lora.git &&
 cd alpaca-lora &&
 chmod +x start_job.sh &&
-./start_job.sh 'rUgkyuiEUWYTz8ileHSArxtxekC3' 'https://firebasestorage.googleapis.com/v0/b/pdf-analysis-saas.appspot.com/o/Other%2Fdataset.json?alt=media&token=28abd658-a308-4050-b631-54bab9b63a6b' scroltest
+./start_job.sh scroltest 'https://firebasestorage.googleapis.com/v0/b/pdf-analysis-saas.appspot.com/o/Other%2Fdataset.json?alt=media&token=28abd658-a308-4050-b631-54bab9b63a6b' 'scrol_token'
 ```
 
 ## Deploy
