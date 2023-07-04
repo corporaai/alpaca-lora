@@ -1,4 +1,9 @@
 
+python3 -m venv "finetune-alpaca"
+
+source "finetune-alpaca/bin/activate" 
+echo "venv activated"
+
 pip install -r requirements.txt
 
 cp finetune-alpaca/lib/python3.8/site-packages/bitsandbytes/libbitsandbytes_cuda117.so finetune-alpaca/lib/python3.8/site-packages/bitsandbytes/libbitsandbytes_cpu.so
