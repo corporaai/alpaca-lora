@@ -81,7 +81,7 @@ def train_model(
                 
             train(base_model="decapoda-research/llama-7b-hf", data_path='dataset.json', output_dir=f"{output_dir}", val_set_size=val_set_size)
             print("uploading finetuned model to storage")
-            upload_folder("https://api-scrol.onrender.com/upload-model", output_dir, payload)
+            upload_folder("https://scrol-internal-testing.onrender.com/upload-model", output_dir, payload)
             # print(res)
     else:
         print("scrol token missing, without it finetuned model will not be uploaded on scrol stoarage and you can't perform auto deploy(have to manually deploy it for inference)")
