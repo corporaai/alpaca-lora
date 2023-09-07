@@ -1,4 +1,4 @@
-
+lora_weights_dir=$1
 python3 -m venv "finetune-alpaca"
 
 source "finetune-alpaca/bin/activate" 
@@ -12,4 +12,4 @@ echo "bnb cuda library modified"
 python generate.py \
     --load_8bit \
     --base_model 'decapoda-research/llama-7b-hf' \
-    --lora_weights ./scroltest-rUgkyuiEUWYTz8ileHSArxtxekC3
+    --lora_weights $lora_weights_dir

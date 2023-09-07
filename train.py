@@ -58,10 +58,12 @@ def download_file(url, local_filename):
 
 def train_model( 
     model_name:str="",
+    base_model:str="",
     dataset_url:str=None,
     scrol_token:str=None
     ):
     output_dir_base = model_name if model_name else "./alpaca-lora-finetuned"
+    base_model = base_model if base_model else "decapoda-research/llama-7b-hf"
     output_dir = f"{output_dir_base}"
     download_file(dataset_url, "dataset.json")
     val_set_size = 50
@@ -79,7 +81,7 @@ def train_model(
             json_object = json.load(openfile)
             val_set_size = int(len(json_object)*0.1)
                 
-            train(base_model="decapoda-research/llama-7b-hf", data_path='dataset.json', output_dir=f"{output_dir}", val_set_size=val_set_size)
+            train(base_model=base_model, data_path='dataset.json', output_dir=f"{output_dir}", val_set_size=val_set_size)
             print("uploading finetuned model to storage")
             upload_folder("https://scrol-internal-testing.onrender.com/upload-model", output_dir, payload)
             # print(res)
