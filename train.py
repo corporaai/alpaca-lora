@@ -58,12 +58,12 @@ def download_file(url, local_filename):
 
 def train_model( 
     model_name:str="",
-    base_model:str="",
+    model_card:str="",
     dataset_url:str=None,
     scrol_token:str=None
     ):
     output_dir_base = model_name if model_name else "./alpaca-lora-finetuned"
-    base_model = base_model if base_model else "decapoda-research/llama-7b-hf"
+    base_model = model_card if model_card else "decapoda-research/llama-7b-hf"
     output_dir = f"{output_dir_base}"
     download_file(dataset_url, "dataset.json")
     val_set_size = 50
