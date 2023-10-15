@@ -23,7 +23,7 @@ except:  # noqa: E722
     pass
 
 
-def main(
+def inference(
     load_8bit: bool = False,
     base_model: str = "",
     lora_weights: str = "tloen/alpaca-lora-7b",
