@@ -6,34 +6,33 @@ import json
 from tqdm import tqdm
 from generate import inference
 from urllib.parse import unquote
-
+import zipfile
 # Function to download a file from Firebase Storage
-def download_file(url, download_folder):
-    # Extract the original filename from the URL and decode it
-    filename = unquote(url.split('%24')[-1].split('?')[0])
-    filepath = os.path.join(download_folder, filename)
-
-    # Send a GET request to download the file
-    response = requests.get(url)
-
-    # Check if the request was successful (status code 200)
-    if response.status_code == 200:
-        # Save the file to the specified folder
-        with open(filepath, 'wb') as file:
-            file.write(response.content)
-        print(f"Downloaded: {filename}")
-    else:
-        print(f"Failed to download: {filename}")
+def download_file(url, local_filename):
+    # NOTE the stream=True parameter below
+    print("downloading train dataset...")
+    with requests.get(url, stream=True) as r:
+        r.raise_for_status()
+        with open(local_filename, 'wb') as f:
+            for chunk in r.iter_content(chunk_size=8192): 
+                # If you have chunk encoded response uncomment if
+                # and set chunk_size parameter to None.
+                #if chunk: 
+                f.write(chunk)
+    print("download finished")
+    return local_filename
 
 # base inference routine
 def inference_model(
     base_model: str = "",
     lora_weights_urls,
     ):
-    download_folder = 'lora_weights'
+    local_filename = 'lora_weights.zip'
     if not os.path.exists(download_folder):
         os.makedirs(download_folder)
-    for url in lora_weights_urls:
-        download_file(url, download_folder)
+    download_file(url, local_filename)
+    with zipfile.ZipFile(local_filename, 'r') as zip_ref:
+        # Extract all the contents of the ZIP file into the specified directory
+        zip_ref.extractall("lora_weights")
     print("starting infernce for model")
     inference(base_model=base_model, lora_weights="lora_weights")
