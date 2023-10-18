@@ -71,12 +71,13 @@ def train_model(
     user_input = None
     if(jobid==False):
         print("jobid not present")
+    print(jobid)
     payload = {
     "secretkey": scrol_token,
     "modelname": output_dir,
     "modelrepo": 'https://github.com/corporaai/alpaca-lora.git',
     "modelbaseweights": "decapoda/llama",
-    "trainingtype": "lora"
+    "trainingtype": "lora",
     "jobid":jobid
         }
     if scrol_token:
