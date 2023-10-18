@@ -24,15 +24,16 @@ def download_file(url, local_filename):
 
 # base inference routine
 def inference_model(
-    base_model: str = "",
-    lora_weights_urls,
+    base_model:str="",
+    lora_weights_urls:str="",
     ):
     local_filename = 'lora_weights.zip'
-    if not os.path.exists(download_folder):
-        os.makedirs(download_folder)
-    download_file(url, local_filename)
+    download_file(lora_weights_urls, local_filename)
+    print("training data downloaded")
     with zipfile.ZipFile(local_filename, 'r') as zip_ref:
         # Extract all the contents of the ZIP file into the specified directory
         zip_ref.extractall("lora_weights")
     print("starting infernce for model")
     inference(base_model=base_model, lora_weights="lora_weights")
+if __name__ == "__main__":
+    fire.Fire(inference_model)

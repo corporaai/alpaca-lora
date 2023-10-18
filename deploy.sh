@@ -1,5 +1,5 @@
-lora_weights_dir=$1
-base_model=$2
+lora_weights_urls=$2
+base_model=$1
 python3 -m venv "finetune-alpaca"
 
 source "finetune-alpaca/bin/activate" 
