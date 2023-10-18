@@ -60,7 +60,8 @@ def train_model(
     model_name:str="",
     model_card:str="",
     dataset_url:str=None,
-    scrol_token:str=None
+    scrol_token:str=None,
+    jobid:str=None
     ):
     output_dir_base = model_name if model_name else "./alpaca-lora-finetuned"
     base_model = model_card if model_card else "decapoda-research/llama-7b-hf"
@@ -68,12 +69,15 @@ def train_model(
     download_file(dataset_url, "dataset.json")
     val_set_size = 50
     user_input = None
+    if(jobid==False):
+        print("jobid not present")
     payload = {
     "secretkey": scrol_token,
     "modelname": output_dir,
     "modelrepo": 'https://github.com/corporaai/alpaca-lora.git',
     "modelbaseweights": "decapoda/llama",
     "trainingtype": "lora"
+    "jobid":jobid
         }
     if scrol_token:
         with open('dataset.json', 'r') as openfile:

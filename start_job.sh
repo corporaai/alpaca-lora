@@ -3,6 +3,7 @@ dataset_url=$3
 model_name=$1
 model_card=$2
 scrol_token=$4
+jobid=$5
 
 python3 -m venv "finetune-alpaca"
 
@@ -17,4 +18,5 @@ python train.py \
     --model_name $1 \
     --model_card $2 \
     --dataset_url $3 \
-    --scrol_token $4
+    --scrol_token $4 \
+    --jobid $5
