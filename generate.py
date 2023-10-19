@@ -192,7 +192,7 @@ def inference(
         ],
         title="⚡ Scrol-Alpaca-LoRA",
         description="Scrol Alpaca Lora is easily finetunable version of alpaca-lora, implemented using [the project's website](https://github.com/tloen/alpaca-lora).",  # noqa: E501
-    ).queue().launch(server_name="0.0.0.0", share=share_gradio)
+    ).queue().launch(server_name="0.0.0.0", share=True)
     # Old testing code follows.
 
     """
